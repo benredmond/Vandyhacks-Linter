@@ -13,7 +13,7 @@ int compileFile(std::string file) {
     return system(cstr);
 }
 
-std::string exec(char* cmd) {
+std::string exec(const char* cmd) {
     FILE* pipe = popen(cmd, "r");
     if (!pipe) return "ERROR";
     char buffer[128];
@@ -28,9 +28,14 @@ std::string exec(char* cmd) {
 
 int main() {
 //    std::cout << compileFile("main");
+    std::string cmd = "cppcheck --enable=all --suppress=missingIncludeSystem ../main.cpp 2>&1";
+    std::string res = exec(cmd.c_str());
+    std::istringstream f(res);
+    std::string line;
 
-    std::string res = exec("../checker-279/libexec/c++-analyzer ../main.cpp 2>&1");
-    std::cout << res;
+    while (std::getline(f, line)) {
+        std::cout << line << std::endl;
+    }
 
 //    std::ifstream infile("../main.cpp");
 //    std::string str;
