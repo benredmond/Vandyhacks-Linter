@@ -28,6 +28,7 @@ std::string exec(const char* cmd) {
     return result;
 }
 
+<<
 void parse (std::map<size_t, std::string> &map1, std::map<std::string, size_t> &map2,std::string line){
  size_t firstColonIndex = 0;
  size_t secondColonIndex = 0;
@@ -65,11 +66,18 @@ void parse (std::map<size_t, std::string> &map1, std::map<std::string, size_t> &
 }
 
 
+
 int main() {
-//    std::cout << compileFile("main");
-    std::string cmd = "cppcheck --enable=all --template=\"{file}:{line}: {severity}: {message}\" --suppress=missingIncludeSystem ../main.cpp 2>&1";
-    std::string res = exec(cmd.c_str());
-    std::istringstream f(res);
+    const std::string FILENAME = "main";
+    std::cout << "EXIT CODE: " << compileFile(FILENAME) << std::endl;
+
+    std::string outputCmd = "../compile.sh " + FILENAME + ".cpp";
+    std::string output = exec(outputCmd.c_str());
+    std::cout << "OUTPUT: " << output;
+
+    std::string linterCmd = "cppcheck --enable=all --template=\"{file}:{line}: {severity}: {message}\" --suppress=missingIncludeSystem ../main.cpp 2>&1";
+    std::string linterRes = exec(linterCmd.c_str());
+    std::istringstream f(linterRes);
     std::string line;
     std::map<size_t, std::string> lineAndDescription;
     std::map<std::string, size_t> typeAndCount;
@@ -81,15 +89,6 @@ int main() {
         }
         errorCount++;
     }
-
-//    std::ifstream infile("../main.cpp");
-//    std::string str;
-//    while (std::getline(infile, str))
-//    {
-//        std::istringstream iss(str);
-//        std::string str2;
-//        std::cout << str << std::endl;
-//    }
 
     return 0;
 }
