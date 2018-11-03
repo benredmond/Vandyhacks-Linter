@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/martin/CLionProjects/Vandyhacks-Linter/Scripting.cpp
+iostream
+-
+sstream
+-
+string
+-
+fstream
+-
+stdlib.h
+-
+map
+-
+
