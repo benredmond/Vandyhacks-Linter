@@ -26,33 +26,32 @@ std::string exec(const char* cmd) {
     return result;
 }
 
+size_t index (std::string line){
+    size_t index = 0;
+    while (line[index] != ':'){
+        index++;
+//        std::cout << line[index] << std::endl;
+    }
+    return index;
+}
+
 int main() {
-//    std::cout << compileFile("main");
-    std::string cmd = "cppcheck --enable=all --template=\"{file}:{line}: {severity}: {message}\" --suppress=missingIncludeSystem ../main.cpp 2>&1";
-    std::string res = exec(cmd.c_str());
-    std::istringstream f(res);
+    const std::string FILENAME = "main";
+    std::cout << "EXIT CODE: " << compileFile(FILENAME) << std::endl;
+
+    std::string outputCmd = "../compile.sh " + FILENAME + ".cpp";
+    std::string output = exec(outputCmd.c_str());
+    std::cout << "OUTPUT: " << output;
+
+    std::string linterCmd = "cppcheck --enable=all --template=\"{file}:{line}: {severity}: {message}\" --suppress=missingIncludeSystem ../main.cpp 2>&1";
+    std::string linterRes = exec(linterCmd.c_str());
+    std::istringstream f(linterRes);
     std::string line;
 
     while (std::getline(f, line)) {
-        int counter = 0;
-        while (line.length() != 0 && line.find(":") != std::string::npos) {
-            std::string first = line.substr(0, line.find(":"));
-            line.erase(0, line.find(":") + 1);
-//            if (counter == 2)
-                std::cout << first << std::endl;
-            ++counter;
-        }
-//        std::cout << line << std::endl;
+//        std::cout << "index of : " << index(line) << std::endl;
+        std::cout << line << std::endl;
     }
-
-//    std::ifstream infile("../main.cpp");
-//    std::string str;
-//    while (std::getline(infile, str))
-//    {
-//        std::istringstream iss(str);
-//        std::string str2;
-//        std::cout << str << std::endl;
-//    }
 
     return 0;
 }
