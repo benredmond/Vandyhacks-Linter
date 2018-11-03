@@ -28,13 +28,21 @@ std::string exec(const char* cmd) {
 
 int main() {
 //    std::cout << compileFile("main");
-    std::string cmd = "cppcheck --enable=all --suppress=missingIncludeSystem ../main.cpp 2>&1";
+    std::string cmd = "cppcheck --enable=all --template=\"{file}:{line}: {severity}: {message}\" --suppress=missingIncludeSystem ../main.cpp 2>&1";
     std::string res = exec(cmd.c_str());
     std::istringstream f(res);
     std::string line;
 
     while (std::getline(f, line)) {
-        std::cout << line << std::endl;
+        int counter = 0;
+        while (line.length() != 0 && line.find(":") != std::string::npos) {
+            std::string first = line.substr(0, line.find(":"));
+            line.erase(0, line.find(":") + 1);
+//            if (counter == 2)
+                std::cout << first << std::endl;
+            ++counter;
+        }
+//        std::cout << line << std::endl;
     }
 
 //    std::ifstream infile("../main.cpp");
