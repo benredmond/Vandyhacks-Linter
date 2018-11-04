@@ -40,9 +40,9 @@ std::string exec(const char* cmd) {
 //     }
 //     index++;
 // }
-////    std::cout << "first colon index = " << firstColonIndex << std::endl;
-////    std::cout << "second colon index = " << secondColonIndex << std::endl;
-////    std::cout << "third colon index = " << thirdColonIndex << std::endl;
+//    std::cout << "first colon index = " << firstColonIndex << std::endl;
+//    std::cout << "second colon index = " << secondColonIndex << std::endl;
+//    std::cout << "third colon index = " << thirdColonIndex << std::endl;
 //
 //    //time to map things
 //    int lineNum1 = stoi(line.substr(firstColonIndex + 1, (secondColonIndex - (firstColonIndex + 1))));
@@ -56,7 +56,7 @@ std::string exec(const char* cmd) {
 //}
 
 int main(int argc, char *argv[]) {
-    std::string linterCmd = "cppcheck --enable=all --template=\"{file}:{line}: {severity}: {message}\" "
+    std::string linterCmd = "./cpp/cppcheck --enable=all --template=\"{file}:{line}: {severity}: {message}\" "
             "--suppress=missingIncludeSystem ./cpp/";
     linterCmd.append(argv[1]);
     linterCmd.append(".cpp 2>&1");

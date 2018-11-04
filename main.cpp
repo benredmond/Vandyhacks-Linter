@@ -36,6 +36,7 @@
 //}
 
 int main() {
+    std::cout << "User code beginning... try to capture this" << std::endl;
     int x;
     ++x;
     std::cout << "TEST" << std::endl;

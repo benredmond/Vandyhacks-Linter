@@ -1,7 +1,7 @@
 #include <iostream>
 
 int compileFile(std::string file) {
-    std::string cmd = "./cpp/compile.sh " + file + ".cpp";
+    std::string cmd = "./compile.sh " + file + ".cpp";
     const char *cstr = cmd.c_str();
     return system(cstr);
 }
